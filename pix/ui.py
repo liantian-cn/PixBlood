@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from pathlib import Path
+import shutil
 
 import psutil
 from PySide6.QtCore import QThread, QTimer, Qt, Signal, Slot
@@ -141,7 +142,28 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def _copy_addon(self) -> None:
-        QMessageBox.information(self, "拷贝插件", "尚未实现")
+        try:
+            if self.pid is None:
+                raise OSError("未选定游戏进程，请先启动游戏")
+            executable = psutil.Process(self.pid).exe()
+            if not executable:
+                raise OSError("可执行文件路径为空")
+            source = Path(__file__).resolve().parent / "lua"
+            if not source.is_dir() or not (source / "PixBlood.toc").is_file():
+                raise OSError(f"插件源目录或 PixBlood.toc 缺失：{source}")
+            destination = Path(executable).parent / "Interface" / "AddOns" / "PixBlood"
+            shutil.copytree(source, destination, dirs_exist_ok=True)
+        except (psutil.Error, OSError) as error:
+            QMessageBox.warning(
+                self, "拷贝插件失败",
+                f"{type(error).__name__}: {error}\n\n"
+                "若复制已开始，可能已有部分文件更新。请解决问题后重试。",
+            )
+            return
+        QMessageBox.information(
+            self, "拷贝插件",
+            f"插件已完整复制到：\n{destination}\n\n请在游戏内执行 /reload。",
+        )
 
     @Slot()
     def _discover_game(self) -> None:

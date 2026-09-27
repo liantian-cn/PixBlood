@@ -69,7 +69,9 @@ World of Warcraft/
                 └── ui/
 ```
 
-确认 `PixBlood.toc` 直接位于 `AddOns/PixBlood/` 下，启用插件并在游戏内执行 `/reload`。桌面端的“拷贝插件”按钮目前是占位功能，请手动复制。
+确认 `PixBlood.toc` 直接位于 `AddOns/PixBlood/` 下，启用插件并在游戏内执行 `/reload`。
+
+也可以先启动游戏和桌面程序，点击 **拷贝插件**：程序会将 `pix/lua/` 下的每一个文件和子目录复制到当前检测到的游戏目录中的 `Interface/AddOns/PixBlood/`，自动创建目录、覆盖同名文件，并保留目标中的额外文件。复制成功后按提示在游戏内执行 `/reload`；游戏未运行时按钮不可用。
 
 插件加载时会自动绑定技能组合键，并调整部分游戏 CVar，包括 UI 缩放、抗锯齿、亮度、对比度和镜头设置。具体设置见 [core/base.lua](pix/lua/core/base.lua)，键位见 [macro.lua](pix/lua/macro.lua)。
 
