@@ -1,0 +1,21 @@
+[project]
+name = "pixblood"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "numpy",
+    "opencv-python>=5.0.0.93",
+    "psutil",
+    "pyside6>=6.11.2",
+    "xxhash>=4.0.1",
+]
+
+[dependency-groups]
+dev = ["pyright>=1.1.414"]
+
+[tool.pyright]
+typeCheckingMode = "basic"
+pythonVersion = "3.13"
+pythonPlatform = "Windows"
