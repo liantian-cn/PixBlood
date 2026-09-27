@@ -54,7 +54,22 @@ uv sync --python 3.13
 
 ### 2. 安装游戏插件
 
-将仓库中 `pix/lua/` 的**全部内容**复制到游戏目录下：
+启动游戏，再在项目目录中启动桌面程序：
+
+```powershell
+uv run python -m pix.main
+```
+
+1. 等待桌面程序识别游戏进程并显示游戏目录。
+2. 点击 **拷贝插件**，将 `pix/lua/` 下的**每一个文件和子目录**复制到该游戏目录中的 `Interface/AddOns/PixBlood/`。
+3. 看到复制成功提示后，在游戏内执行 `/reload`，确认插件已启用并显示控制面板。
+
+程序会自动创建目录、覆盖同名文件，并保留目标中的额外文件。更新插件时也可以使用此按钮；游戏未运行时按钮不可用。若复制失败，请根据错误提示处理后重试。
+
+<details>
+<summary><strong>手动安装（备用方式）</strong></summary>
+
+也可以将仓库中 `pix/lua/` 的**全部内容**复制到游戏目录下，保留所有子目录、字体和图片文件：
 
 ```text
 World of Warcraft/
@@ -71,15 +86,13 @@ World of Warcraft/
 
 确认 `PixBlood.toc` 直接位于 `AddOns/PixBlood/` 下，启用插件并在游戏内执行 `/reload`。
 
-也可以先启动游戏和桌面程序，点击 **拷贝插件**：程序会将 `pix/lua/` 下的每一个文件和子目录复制到当前检测到的游戏目录中的 `Interface/AddOns/PixBlood/`，自动创建目录、覆盖同名文件，并保留目标中的额外文件。复制成功后按提示在游戏内执行 `/reload`；游戏未运行时按钮不可用。
+</details>
 
 插件加载时会自动绑定技能组合键，并调整部分游戏 CVar，包括 UI 缩放、抗锯齿、亮度、对比度和镜头设置。具体设置见 [core/base.lua](pix/lua/core/base.lua)，键位见 [macro.lua](pix/lua/macro.lua)。
 
-### 3. 启动桌面程序
+### 3. 启动截图与循环
 
-```powershell
-uv run python -m pix.main
-```
+安装完成后，继续使用已打开的桌面程序；如果采用手动安装且尚未启动程序，先运行 `uv run python -m pix.main`。
 
 1. 进入游戏，保持插件像素区域在桌面上可见、不被遮挡。
 2. 点击桌面程序的 **启动截图**，查看定位状态。
