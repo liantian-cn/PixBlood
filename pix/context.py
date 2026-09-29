@@ -225,12 +225,14 @@ class Context:
         return self.readSpellCDCell(47)
 
     @property
-    def spell_charges_blood_boil(self) -> float:
-        return self.readValueBarCell(48, 2, 2)
+    def spell_charges_blood_boil(self) -> int:
+        """Grayscale count; 0 includes absence, 255 means at least 255."""
+        return int(self.readNumberCell(48) + 0.5)
 
     @property
-    def spell_charges_death_and_decay(self) -> float:
-        return self.readValueBarCell(51, 2, 2)
+    def spell_charges_death_and_decay(self) -> int:
+        """Grayscale count; 0 includes absence, 255 means at least 255."""
+        return int(self.readNumberCell(51) + 0.5)
 
     @property
     def item_cd_lights_potential(self) -> bool:
@@ -261,8 +263,9 @@ class Context:
         return self.readAuraDurationCell(60)
 
     @property
-    def player_buff_stacks_bone_shield(self) -> float:
-        return self.readValueBarCell(61, 3, 12)
+    def player_buff_stacks_bone_shield(self) -> int:
+        """Grayscale count; 0 includes absence, 255 means at least 255."""
+        return int(self.readNumberCell(61) + 0.5)
 
     @property
     def target_has_debuff_blood_plague(self) -> bool:
@@ -274,8 +277,9 @@ class Context:
         return self.readNumberCell(66) / 10
 
     @property
-    def player_buff_stacks_blood_debt(self) -> float:
-        return self.readValueBarCell(67, 3, 12)
+    def player_buff_stacks_blood_debt(self) -> int:
+        """Grayscale count; 0 includes absence, 255 means at least 255."""
+        return int(self.readNumberCell(67) + 0.5)
 
     @property
     def mouseover_in_melee_range(self) -> bool:

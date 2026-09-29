@@ -1,5 +1,5 @@
--- 第 67–70 格显示血债层数；内容宽 3 格，量程 12，实际最多 10 层。
--- 原生光环槽管理层数条，光环消失后露出黑底。
+-- 第 67 格灰度字节直接表示血债层数；255 及以上饱和为白色。
+-- 原生光环槽管理层数文字，光环消失后露出黑底。
 local addonName, addonTable    = ...
 
 -- Lua 内置方法
@@ -9,19 +9,18 @@ local ipairs                  = ipairs
 -- WoW API
 local CreateFrame             = CreateFrame
 local After                   = C_Timer.After
+local GameFontNormal          = GameFontNormal
 
 -- 项目引用
-local ValueBarBackplate        = addonTable.ValueBarBackplate
-local COLOR                   = addonTable.COLOR
+local CellBackplate           = addonTable.CellBackplate
+local CountFormatter          = addonTable.CountFormatter
 local SIZE                    = addonTable.SIZE
 local FrameLevel              = addonTable.FrameLevel
 local UIInitFuncs             = addonTable.UIInitFuncs
 
 -- 本地配置与状态
 local X                       = 67
-local WIDTH                   = 3
 local AURA_IDS                = { 1310372 }
-local MAX_APPLICATIONS        = 12
 local eventFrame              = CreateFrame("Frame")
 local container
 
@@ -33,7 +32,7 @@ local function Refresh()
 end
 
 local function Initialize()
-    local backing = ValueBarBackplate:New(X, WIDTH)
+    local backing = CellBackplate:New({ x = X })
     container = CreateFrame("AuraContainer", nil, backing.Frame, "CustomAuraContainerTemplate")
     container:SetAllPoints(backing.Frame)
     container:SetFrameLevel(FrameLevel.AuraContainer)
@@ -46,16 +45,21 @@ local function Initialize()
     container:AddAuraSlot("aura", "HELPFUL|PLAYER", {
         candidateFilters = { includeSpellIDs = includeSpellIDs },
         initializeFrame = function(frame)
-            frame:SetSize(WIDTH * SIZE.CELL, SIZE.CELL)
+            frame:SetSize(SIZE.CELL, SIZE.CELL)
             frame:SetPoint("TOPLEFT", container, "TOPLEFT")
             frame:SetFrameLevel(FrameLevel.AuraButton)
-            local color = COLOR.WHITE
-            local bar = CreateFrame("StatusBar", nil, frame)
-            bar:SetAllPoints(frame)
-            bar:SetFrameLevel(FrameLevel.AuraContent)
-            bar:SetOrientation("HORIZONTAL")
-            bar:SetColorFill(color:GetRGBA())
-            frame:SetApplicationBar(bar, { maxApplications = MAX_APPLICATIONS })
+            frame:SetClipsChildren(true)
+            local fontPath = GameFontNormal:GetFont()
+            local text = frame:CreateFontString(nil, "ARTWORK")
+            text:SetFont(fontPath, SIZE.CELL_FONT_SIZE, "")
+            text:SetPoint("CENTER", frame, "CENTER")
+            text:SetJustifyH("CENTER")
+            text:SetJustifyV("MIDDLE")
+            text:SetShadowOffset(0, 0)
+            text:SetShadowColor(0, 0, 0, 0)
+            text:SetTextColor(1, 1, 1, 1)
+            text:SetFixedColor(false)
+            frame:SetApplicationCount(text, { formatter = CountFormatter })
         end,
     })
     Refresh()

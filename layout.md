@@ -53,8 +53,8 @@
 | N    | 045        | spell_cd_dancing_rune_weapon     | Cell              | 45       | 45       |          | Curve曲线         | [符文刃舞]。SPELLID:49028 的冷却时间,ignore_gcd = true                    |
 | N    | 046        | spell_cd_deaths_caress           | Cell              | 46       | 46       |          | Curve曲线         | [死神的抚摩]。SPELLID:195292 的冷却时间,ignore_gcd = true                 |
 | N    | 047        | spell_cd_raise_dead              | Cell              | 47       | 47       |          | Curve曲线         | [亡者复生]。SPELLID:46585 的冷却时间,ignore_gcd = true                    |
-| N    | 048        | spell_charges_blood_boil         | ValueBar          | 48       | 50       | 2(占用3) | 进度条            | 血液沸腾 spellid [50842]的充能层数，最大值=2                              |
-| N    | 051        | spell_charges_death_and_decay    | ValueBar          | 51       | 53       | 2(占用3) | 进度条            | 枯萎凋零 spellid [43265]的充能层数，最大值=2                              |
+| N | 048 | spell_charges_blood_boil | CellBackplate | 48 | 48 | - | 整数灰度 | 血液沸腾 [50842] 充能；RGB字节=计数；Python int(mean+0.5)；0含缺失，255表示至少255 |
+| N | 051 | spell_charges_death_and_decay | CellBackplate | 51 | 51 | - | 整数灰度 | 枯萎凋零 [43265] 充能；RGB字节=计数；Python int(mean+0.5)；0含缺失，255表示至少255 |
 | N    | 054        | item_cd_lights_potential         | Cell              | 54       | 54       |          | 布尔              | 爆发药水[圣光潜力]冷却就绪 物品id 241308                                  |
 | N    | 055        | player_has_dance_of_midnight     | Cell              | 55       | 55       |          | 原生AuraContainer | 玩家有午夜舞步buff, buff的spell id 有[1264351, 1264405, 1264568, 1264407] |
 | N    | 056        | player_has_buff_boiling_point    | Cell              | 56       | 56       |          | 原生AuraContainer | 玩家有沸点buff, buff的spell id 有[1265790, 1265982, 1265968]              |
@@ -62,10 +62,10 @@
 | N    | 058        | player_has_buff_crimson_scourge  | Cell              | 58       | 58       |          | 原生AuraContainer | 玩家有赤色天灾buff, buff的spell id 有[81141, 81136]                       |
 | N    | 059        | player_has_buff_exterminate      | Cell              | 59       | 59       |          | 原生AuraContainer | 玩家有破灭buff, buff的spell id 有[441426, 447954, 441424, 441378, 441416] |
 | N    | 060        | player_buff_duration_bone_shield | CellBackplate     | 60       | 60       |          | 原生AuraContainer | buff白骨之盾 [195181] 的剩余时间                                          |
-| N    | 061        | player_buff_stacks_bone_shield   | ValueBarBackplate | 61       | 64       | 3(占用4) | 进度条            | buff白骨之盾 [195181] 的层数                                              |
+| N | 061 | player_buff_stacks_bone_shield | CellBackplate | 61 | 61 | - | 整数灰度 | 白骨之盾 [195181] 层数；RGB字节=计数；Python int(mean+0.5)；0含缺失，255表示至少255 |
 | N    | 065        | target_has_debuff_blood_plague   | Cell              | 65       | 65       |          | 原生AuraContainer | 目标有血之疫病debuff  id 55078                                            |
 | N    | 066        | spec_boiling_point              | Cell              | 66       | 66       | -        | 时间戳倒计时      | 非秘密 SPELL_UPDATE_COOLDOWN ID 1265982 触发3秒窗口；每0.1秒刷新，RGB=ceil(剩余秒数×10)/255，Python亮度/10得秒数；重复触发重置，进入世界清零 |
-| N    | 067        | player_buff_stacks_blood_debt   | ValueBarBackplate | 67       | 70       | 3(占用4) | 进度条            | 血债 1310372 层数；量程12，实际最多10层；Python比例×12 |
+| N | 067 | player_buff_stacks_blood_debt | CellBackplate | 67 | 67 | - | 整数灰度 | 血债 [1310372] 层数；RGB字节=计数；Python int(mean+0.5)；0含缺失，255表示至少255 |
 | N    | 071        | mouseover_in_melee_range        | Cell              | 71       | 71       | -        | 布尔              | 每0.1秒查询mouseover存在与灵界打击49998射程；不存在、普通nil或超出范围清黑 |
 | N    | 072        | burst_potion_enabled           | Cell              | 72       | 72       | -        | 布尔              | 独立爆发药水开关，现有面板combo控制、默认关闭；白色开启、黑色关闭 |
 | Y    | 073        | player_melee_enemies_count      | Cell              | 73       | 73       | -        | 整数灰度          | nameplate1–40中存在、可攻击、存活且灵界打击49998射程为普通true的单位数；COMBAT_ONLY=false，秘密/nil射程不计；仅可观察姓名板；初始化、事件延后刷新及0.2秒轮询，RGB=count/40，Python int(ratio×40+0.5)还原0–40 |
