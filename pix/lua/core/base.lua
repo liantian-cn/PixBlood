@@ -193,6 +193,19 @@ percentCurve:AddPoint(0, COLOR.BLACK)
 percentCurve:AddPoint(1, COLOR.WHITE)
 addonTable.CURVE.percent = percentCurve
 
+-- 计数格式器只创建一次，充能与光环层数共享；255 及以上饱和为白色。
+-- 规则生成仅处理普通循环变量，秘密计数由原生格式器处理。
+local countFormatter = C_StringUtil.CreateNumericRuleFormatter()
+local countRules = {}
+for count = 0, 255 do
+    countRules[#countRules + 1] = {
+        threshold = count,
+        format = string.format("|cFF%02X%02X%02X█|r", count, count, count),
+    }
+end
+countFormatter:SetBreakpoints(countRules)
+addonTable.CountFormatter = countFormatter
+
 
 
 
