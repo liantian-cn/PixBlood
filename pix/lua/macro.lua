@@ -1,25 +1,13 @@
-local addonName, addonTable = ... -- 插件入口固定写法
+local addonName, addonTable = ...
+local insert = table.insert
+local CreateFrame = CreateFrame
+local SetOverrideBindingClick = SetOverrideBindingClick
+local logging = addonTable.logging
 
+-- 复用 base.lua 的检查结果，不为待重载插件绑定技能宏。
+if addonTable.RELOAD_REQUIRED then return end
 
--- Lua 原生函数
-local insert                            = table.insert
-local pairs                             = pairs
-
--- WoW 官方 API
-local CreateFrame                       = CreateFrame
-local SetOverrideBindingClick           = SetOverrideBindingClick
-local UnitClass                         = UnitClass
-local GetSpecialization                 = GetSpecialization
-local logging                           = addonTable.logging
--- 专精错误则停止
-local className, classFilename, classId = UnitClass("player")
-local currentSpec                       = GetSpecialization()
-if classFilename ~= "DEATHKNIGHT" then
-    C_AddOns.DisableAddOn(addonName)
-    return
-end                                 -- 不是死亡骑士则停止
-if currentSpec ~= 1 then return end -- 不是鲜血专精则停止
-
+local pairs = pairs
 
 local macroList = {}
 insert(macroList, { title = "reloadUI", key = "CTRL-F12", text = "/reload" })

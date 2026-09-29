@@ -313,7 +313,7 @@ local function CreatePanelFrame()
     end
 
     toggleButton:HookScript("OnMouseUp", function()
-        addonTable.ENABLE = not addonTable.ENABLE
+        addonTable.ENABLE = not addonTable.RELOAD_REQUIRED and not addonTable.ENABLE
         UpdateStatusUI()
     end)
 

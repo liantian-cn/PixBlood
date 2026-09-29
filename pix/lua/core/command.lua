@@ -13,7 +13,7 @@ local min = math.min              -- 取较小值，将爆发剩余秒数上限�
 local SlashCmdList = SlashCmdList -- 注册插件聊天命令处理函数
 
 
-addonTable.ENABLE = true -- 是否开启插件
+addonTable.ENABLE = not addonTable.RELOAD_REQUIRED -- 待重载时保持关闭
 
 
 addonTable.BurstTime = GetTime() + 60                          -- 初始化共享爆发截止时间，默认从加载时起持续 60 秒
@@ -39,13 +39,21 @@ end
 addonTable.CommandHandler = {}
 local CommandHandler = addonTable.CommandHandler
 
+function addonTable.PrintCommandHelp()
+    print("PixBlood 命令:")
+    print("/pix toggle — 切换启停")
+    print("/pix disable — 关闭插件")
+    print("/pix burst [秒数] — 爆发窗口，默认 15 秒，0 结束")
+    print("/pix delay [秒数] — 设置延迟状态，默认 0.4 秒")
+end
+
 function CommandHandler:Dispatch(command)
+    if addonTable.RELOAD_REQUIRED then return end
+
     local func, msg = command:match("^(%S+)%s*(.*)$")
 
     if not func then
-        print("PixBlood 命令:")
-        print("/blood disable [msg]")
-        print("/blood toggle [msg]")
+        addonTable.PrintCommandHelp()
         return
     end
 
@@ -59,10 +67,12 @@ function CommandHandler:Dispatch(command)
     handler(self, msg)
 end
 
-SLASH_PixBlood1 = "/blood"
-
-SlashCmdList.PixBlood = function(command)
-    CommandHandler:Dispatch(command)
+-- 只有匹配当前专精的插件注册统一命令，避免多个 Pix 插件抢占。
+if not addonTable.RELOAD_REQUIRED then
+    SLASH_PixBlood1 = "/pix"
+    SlashCmdList.PixBlood = function(command)
+        CommandHandler:Dispatch(command)
+    end
 end
 
 
@@ -83,7 +93,7 @@ function CommandHandler:toggle(arguments)
         return
     end
 
-    addonTable.ENABLE = not addonTable.ENABLE
+    addonTable.ENABLE = not addonTable.RELOAD_REQUIRED and not addonTable.ENABLE
 end
 
 local function ParseDuration(arguments, defaultDuration)

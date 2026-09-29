@@ -1,5 +1,60 @@
 local addonName, addonTable = ...
 
+-- 职业与专精检查集中在此处；禁用插件要到重载后才停止加载。
+local UnitClass = UnitClass
+local GetSpecialization = C_SpecializationInfo.GetSpecialization
+local CreateFrame = CreateFrame
+local StaticPopupDialogs = StaticPopupDialogs
+local StaticPopup_Show = StaticPopup_Show
+local ReloadUI = ReloadUI
+local DisableAddOn = C_AddOns.DisableAddOn
+
+local _, classFilename = UnitClass("player")
+local baselineSpecialization = GetSpecialization()
+local prompted = false
+local popupName = addonName .. "_SPECIALIZATION_RELOAD"
+addonTable.RELOAD_REQUIRED = false
+
+StaticPopupDialogs[popupName] = {
+    text = addonName .. "：%s",
+    button1 = "重载界面",
+    OnAccept = function()
+        ReloadUI()
+    end,
+    timeout = 0,
+    hideOnEscape = false,
+    closeButton = false,
+    whileDead = true,
+}
+
+local function RequireReload(message)
+    addonTable.RELOAD_REQUIRED = true
+    addonTable.ENABLE = false
+    if not prompted then
+        prompted = true
+        StaticPopup_Show(popupName, message)
+    end
+end
+
+if classFilename ~= "DEATHKNIGHT" or baselineSpecialization ~= 1 then
+    DisableAddOn(addonName)
+    RequireReload("当前职业或专精不匹配，插件已禁用，请重载界面。")
+end
+
+local specializationFrame = CreateFrame("Frame")
+specializationFrame:RegisterEvent("ACTIVE_PLAYER_SPECIALIZATION_CHANGED")
+specializationFrame:SetScript("OnEvent", function()
+    local specialization = GetSpecialization()
+    if specialization ~= baselineSpecialization then
+        if classFilename ~= "DEATHKNIGHT" or specialization ~= 1 then
+            DisableAddOn(addonName)
+        end
+        RequireReload("专精已切换，请重载界面以加载对应循环。")
+    end
+end)
+
+-- 即使不匹配，也保留后续 Lua 文件依赖的共享对象初始化。
+
 -- lua缓存
 local select = select
 local ipairs = ipairs
