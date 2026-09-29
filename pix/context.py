@@ -269,30 +269,30 @@ class Context:
 
     @property
     def target_has_debuff_blood_plague(self) -> bool:
-        return self.readBooleanCell(65)
+        return self.readBooleanCell(49)
 
     @property
     def spec_boiling_point(self) -> float:
         """Seconds remaining in the event-triggered local Boiling Point window."""
-        return self.readNumberCell(66) / 10
+        return self.readNumberCell(50) / 10
 
     @property
     def player_buff_stacks_blood_debt(self) -> int:
         """Grayscale count; 0 includes absence, 255 means at least 255."""
-        return int(self.readNumberCell(67) + 0.5)
+        return int(self.readNumberCell(52) + 0.5)
 
     @property
     def mouseover_in_melee_range(self) -> bool:
-        return self.readBooleanCell(71)
+        return self.readBooleanCell(53)
 
     @property
     def burst_potion_enabled(self) -> bool:
-        return self.readBooleanCell(72)
+        return self.readBooleanCell(62)
 
     @property
     def player_melee_enemies_count(self) -> int:
         """Observable living enemies within Death Strike range (0–40)."""
-        return int(self.matrix.getCell(73).ratio * 40 + 0.5)
+        return int(self.matrix.getCell(63).ratio * 40 + 0.5)
 
     @property
     def player_cast_icon(self) -> str | None:

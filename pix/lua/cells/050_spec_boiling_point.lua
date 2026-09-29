@@ -1,4 +1,4 @@
--- 第 66 格显示沸点事件触发的本地 3 秒窗口，不读取真实光环剩余时间。
+-- 第 50 格显示沸点事件触发的本地 3 秒窗口，不读取真实光环剩余时间。
 -- RGB 字节值为向上取整的剩余十分之一秒（0～30）。
 local addonName, addonTable = ...
 
@@ -17,7 +17,7 @@ local issecretvalue = issecretvalue
 local Cell = addonTable.Cell
 local UIInitFuncs = addonTable.UIInitFuncs
 
-local X = 66
+local X = 50
 local SPELL_ID = 1265982
 local DURATION = 3
 local deadline = 0

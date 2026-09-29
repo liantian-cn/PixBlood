@@ -1,4 +1,4 @@
--- 第 67 格灰度字节直接表示血债层数；255 及以上饱和为白色。
+-- 第 52 格灰度字节直接表示血债层数；255 及以上饱和为白色。
 -- 原生光环槽管理层数文字，光环消失后露出黑底。
 local addonName, addonTable    = ...
 
@@ -19,7 +19,7 @@ local FrameLevel              = addonTable.FrameLevel
 local UIInitFuncs             = addonTable.UIInitFuncs
 
 -- 本地配置与状态
-local X                       = 67
+local X                       = 52
 local AURA_IDS                = { 1310372 }
 local eventFrame              = CreateFrame("Frame")
 local container

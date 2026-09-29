@@ -20,7 +20,7 @@ local COLOR = addonTable.COLOR
 local UIInitFuncs = addonTable.UIInitFuncs
 
 -- 本地配置
-local X = 71
+local X = 53
 local SPELL_ID = 49998
 local cell
 local eventFrame = CreateFrame("Frame")

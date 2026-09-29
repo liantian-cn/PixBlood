@@ -1,4 +1,4 @@
--- 第 65 格显示目标的血之疫病减益：存在为白色，否则为黑色。
+-- 第 49 格显示目标的血之疫病减益：存在为白色，否则为黑色。
 -- 原生光环容器负责匹配与显隐，不读取秘密光环数据。
 local addonName, addonTable    = ...
 
@@ -20,7 +20,7 @@ local FrameLevel              = addonTable.FrameLevel
 local UIInitFuncs             = addonTable.UIInitFuncs
 
 -- 本地配置与状态
-local X                       = 65
+local X                       = 49
 local AURA_IDS                = { 55078 }
 local eventFrame              = CreateFrame("Frame")
 local container
