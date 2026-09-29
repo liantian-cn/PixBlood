@@ -1,4 +1,5 @@
--- 单格灰度字节直接表示充能数；缺失或零充能为黑色，255 及以上为白色。
+-- 单格灰度字节直接表示充能数；本技能为 0–2 次，缺失或零充能为黑色。
+-- 秘密充能仅交给 string.format 和 SetText，不调用受执行环境限制的 FormatNumber。
 local addonName, addonTable    = ...
 
 -- lua 内置方法
@@ -18,7 +19,6 @@ local GameFontNormal = GameFontNormal
 local UIInitFuncs = addonTable.UIInitFuncs
 local CellBackplate = addonTable.CellBackplate
 local SIZE = addonTable.SIZE
-local CountFormatter = addonTable.CountFormatter
 
 -- 本地配置
 local X = 48
@@ -46,11 +46,11 @@ local function Refresh()
             if not issecretvalue(value) and value == nil then
                 value = 0
             end
-            text:SetText(CountFormatter:FormatNumber(value))
+            text:SetText(string.format("|cFF%02X%02X%02X█|r", value, value, value))
             return
         end
     end
-    text:SetText(CountFormatter:FormatNumber(0))
+    text:SetText("|cFF000000█|r")
 end
 
 local function Initialize()

@@ -53,10 +53,10 @@
 | N    | 045        | spell_cd_dancing_rune_weapon     | Cell              | 45       | 45       |          | Curve曲线         | [符文刃舞]。SPELLID:49028 的冷却时间,ignore_gcd = true                    |
 | N    | 046        | spell_cd_deaths_caress           | Cell              | 46       | 46       |          | Curve曲线         | [死神的抚摩]。SPELLID:195292 的冷却时间,ignore_gcd = true                 |
 | N    | 047        | spell_cd_raise_dead              | Cell              | 47       | 47       |          | Curve曲线         | [亡者复生]。SPELLID:46585 的冷却时间,ignore_gcd = true                    |
-| N | 048 | spell_charges_blood_boil | CellBackplate | 48 | 48 | - | 整数灰度 | 血液沸腾 [50842] 充能；RGB字节=计数；Python int(mean+0.5)；0含缺失，255表示至少255 |
+| N | 048 | spell_charges_blood_boil | CellBackplate | 48 | 48 | - | 整数灰度 | 血液沸腾 [50842] 充能0–2；秘密值经string.format生成灰度文字，无辅助StatusBar；RGB字节=计数；Python int(mean+0.5)；0含缺失 |
 | N | 049 | target_has_debuff_blood_plague | Cell | 49 | 49 |  | 原生AuraContainer | 目标有血之疫病debuff  id 55078 |
 | N | 050 | spec_boiling_point | Cell | 50 | 50 | - | 时间戳倒计时 | 非秘密 SPELL_UPDATE_COOLDOWN ID 1265982 触发3秒窗口；每0.1秒刷新，RGB=ceil(剩余秒数×10)/255，Python亮度/10得秒数；重复触发重置，进入世界清零 |
-| N | 051 | spell_charges_death_and_decay | CellBackplate | 51 | 51 | - | 整数灰度 | 枯萎凋零 [43265] 充能；RGB字节=计数；Python int(mean+0.5)；0含缺失，255表示至少255 |
+| N | 051 | spell_charges_death_and_decay | CellBackplate | 51 | 51 | - | 整数灰度 | 枯萎凋零 [43265] 充能0–2；秘密值经string.format生成灰度文字，无辅助StatusBar；RGB字节=计数；Python int(mean+0.5)；0含缺失 |
 | N | 052 | player_buff_stacks_blood_debt | CellBackplate | 52 | 52 | - | 整数灰度 | 血债 [1310372] 层数；RGB字节=计数；Python int(mean+0.5)；0含缺失，255表示至少255 |
 | N | 053 | mouseover_in_melee_range | Cell | 53 | 53 | - | 布尔 | 每0.1秒查询mouseover存在与灵界打击49998射程；不存在、普通nil或超出范围清黑 |
 | N    | 054        | item_cd_lights_potential         | Cell              | 54       | 54       |          | 布尔              | 爆发药水[圣光潜力]冷却就绪 物品id 241308                                  |

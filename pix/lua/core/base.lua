@@ -193,7 +193,7 @@ percentCurve:AddPoint(0, COLOR.BLACK)
 percentCurve:AddPoint(1, COLOR.WHITE)
 addonTable.CURVE.percent = percentCurve
 
--- 计数格式器只创建一次，充能与光环层数共享；255 及以上饱和为白色。
+-- 计数格式器只创建一次，供光环层数的原生绑定共享；255 及以上饱和为白色。
 -- 规则生成仅处理普通循环变量，秘密计数由原生格式器处理。
 local countFormatter = C_StringUtil.CreateNumericRuleFormatter()
 local countRules = {}
