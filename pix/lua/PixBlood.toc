@@ -1,6 +1,6 @@
 ## Interface: 120100
 ## Title: 死亡骑士-鲜血
-## Version: 12.1.0.68209
+## Version: 12.1.0.69933
 ## Category: Tools
 ## SavedVariables: PixBloodDB
 ## LoadSavedVariablesFirst: 1
