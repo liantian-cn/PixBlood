@@ -32,6 +32,11 @@ class Rotation:
         if not ctx.enable:
             return Idle("插件未启用")
 
+        # 如果 插件正在延迟
+        # => 不执行动作
+        if ctx.delaying:
+            return Idle("插件延迟中")
+
         # 如果 玩家不在战斗
         # => 不执行动作
         if not ctx.player_in_combat:
