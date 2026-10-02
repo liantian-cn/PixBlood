@@ -295,6 +295,11 @@ class Context:
         return int(self.matrix.getCell(63).ratio * 40 + 0.5)
 
     @property
+    def interrupt_progress_threshold(self) -> int:
+        value = int(self.readNumberCell(64) + 0.5)
+        return value if 10 <= value <= 90 else 30
+
+    @property
     def player_cast_icon(self) -> str | None:
         return self.readIconTile(1)
 

@@ -69,17 +69,22 @@ class Rotation:
             if focus_melee:
                 return Cast("focus灵界打击", "第1条：低血量自疗")
 
-        # 如果 焦点正在进行可打断的施法或引导
+        interrupt_progress = ctx.interrupt_progress_threshold
+
+        # 如果 焦点正在进行可打断的施法或引导，且已经过进度严格超过配置阈值
         # 如果 心灵冰冻冷却就绪
         # 如果 焦点存在且存活、可攻击且不可被援助
         # => 对焦点施放 心灵冰冻
-        if ctx.focus_cast_interruptible and ctx.spell_cd_mind_freeze == 0 and (ctx.focus_is_exists and ctx.focus_is_alive and ctx.focus_can_attack and not ctx.focus_can_assist):
+        if (ctx.focus_cast_interruptible and ctx.focus_cast_progress > interrupt_progress
+                and ctx.spell_cd_mind_freeze == 0
+                and ctx.focus_is_exists and ctx.focus_is_alive and ctx.focus_can_attack and not ctx.focus_can_assist):
             return Cast("焦点心灵冰冻")
 
-        # 如果 目标正在进行可打断的施法或引导
+        # 如果 目标正在进行可打断的施法或引导，且已经过进度严格超过配置阈值
         # 如果 心灵冰冻冷却就绪
         # => 对目标施放 心灵冰冻
-        if ctx.target_cast_interruptible and ctx.spell_cd_mind_freeze == 0:
+        if (ctx.target_cast_interruptible and ctx.target_cast_progress > interrupt_progress
+                and ctx.spell_cd_mind_freeze == 0):
             return Cast("目标心灵冰冻")
 
         # 如果 白骨之盾剩余时间不超过 5 秒或层数不超过 5 层

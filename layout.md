@@ -69,3 +69,4 @@
 | N | 061 | player_buff_stacks_bone_shield | CellBackplate | 61 | 61 | - | 整数灰度 | 白骨之盾 [195181] 层数；RGB字节=计数；Python int(mean+0.5)；0含缺失，255表示至少255 |
 | N | 062 | burst_potion_enabled | Cell | 62 | 62 | - | 布尔 | 独立爆发药水开关，现有面板combo控制、默认关闭；白色开启、黑色关闭 |
 | Y | 063 | player_melee_enemies_count | Cell | 63 | 63 | - | 整数灰度 | nameplate1–40中存在、可攻击、存活且灵界打击49998射程为普通true的单位数；COMBAT_ONLY=false，秘密/nil射程不计；仅可观察姓名板；初始化、事件延后刷新及0.2秒轮询，RGB=count/40，Python int(ratio×40+0.5)还原0–40 |
+| Y | 064 | interrupt_progress_threshold | Cell | 64 | 64 | - | 整数灰度 | 打断进度阈值；面板滑块10%–90%，步长1%，默认30%；RGB=阈值/255，Python int(mean+0.5)，范围外回退30；初始化及配置变化时刷新；目标和焦点的施法/引导已经过进度严格大于阈值才允许心灵冰冻 |

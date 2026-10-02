@@ -79,6 +79,7 @@ cells\052_player_buff_stacks_blood_debt.lua
 cells\053_mouseover_in_melee_range.lua
 cells\062_burst_potion_enabled.lua
 cells\063_player_melee_enemies_count.lua
+cells\064_interrupt_progress_threshold.lua
 cells\I01_player_cast_icon.lua
 cells\I02_assisted_combat_icon.lua
 cells\I03_target_cast_icon.lua
