@@ -65,11 +65,20 @@ def main() -> int:
             )
             return 0
 
+        # Give this application its own Windows taskbar identity.
+        shell32.SetCurrentProcessExplicitAppUserModelID.argtypes = [wintypes.LPCWSTR]
+        shell32.SetCurrentProcessExplicitAppUserModelID.restype = ctypes.c_long
+        result = shell32.SetCurrentProcessExplicitAppUserModelID("Pix.PixBlood")
+        if result < 0:
+            raise OSError(f"Failed to set taskbar application ID: HRESULT {result:#x}")
+
+        from PySide6.QtGui import QIcon
         from PySide6.QtWidgets import QApplication
 
         from pix.ui import MainWindow
 
         app = QApplication(sys.argv)
+        app.setWindowIcon(QIcon(str(Path(__file__).resolve().parent / "assets" / "app.ico")))
         window = MainWindow()
         window.show()
         return app.exec()
