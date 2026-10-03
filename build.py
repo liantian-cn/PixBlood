@@ -51,7 +51,7 @@ def main() -> int:
     if uv is None:
         raise RuntimeError("uv must be installed and available on PATH.")
 
-    for relative in ("pyproject.toml", "uv.lock", "pix/main.py", "pix/assets/app.ico"):
+    for relative in ("pyproject.toml", "uv.lock", "pix/__main__.py", "pix/assets/app.ico"):
         if not (ROOT / relative).is_file():
             raise RuntimeError(f"Required project file is missing: {relative}")
     addons = list((ROOT / "pix/lua").glob("*.toc"))
@@ -86,7 +86,7 @@ def main() -> int:
 
     # Import main as a package module so __file__ still locates pix/assets and pix/lua.
     entry = work / f"{name}.py"
-    entry.write_text("from pix.main import main\n\nraise SystemExit(main())\n", encoding="utf-8")
+    entry.write_text("from pix.__main__ import main\n\nraise SystemExit(main())\n", encoding="utf-8")
     report = work / "compilation-report.xml"
     candidate = checked_path(work / f"{name}.dist", work)
     remove_directory(candidate, work)
@@ -105,7 +105,7 @@ def main() -> int:
         f"--include-data-dir={ROOT / 'pix/lua'}=pix/lua",
         f"--force-stdout-spec={{CACHE_DIR}}/{name}.stdout.log",
         f"--force-stderr-spec={{CACHE_DIR}}/{name}.stderr.log",
-        "--include-module=pix.main", "--assume-yes-for-downloads",
+        "--include-module=pix.__main__", "--assume-yes-for-downloads",
         f"--report={report}", entry,
         env=compile_env,
     )
@@ -117,7 +117,7 @@ def main() -> int:
         for module in ET.parse(report).iter("module")
         if module.attrib.get("kind") == "CompiledPythonModule"
     }
-    expected = {"pix.main", "pix.ui", "pix.action", "pix.capture", "pix.context",
+    expected = {"pix.__main__", "pix.ui", "pix.action", "pix.capture", "pix.context",
                 "pix.matrix", "pix.keyboard", "pix.rotation"}
     if missing := expected - compiled:
         raise RuntimeError(f"Project modules were not compiled: {', '.join(sorted(missing))}")

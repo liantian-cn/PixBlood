@@ -27,7 +27,7 @@ def main() -> int:
     shell32.ShellExecuteW.restype = ctypes.c_ssize_t
 
     if not shell32.IsUserAnAdmin():
-        parameters = subprocess.list2cmdline(["-m", "pix.main", *sys.argv[1:]])
+        parameters = subprocess.list2cmdline(["-m", "pix", *sys.argv[1:]])
         result = shell32.ShellExecuteW(
             None, "runas", sys.executable, parameters,
             str(Path(__file__).resolve().parent.parent), 1,

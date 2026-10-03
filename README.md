@@ -56,7 +56,7 @@ uv sync --python 3.13
 启动游戏，再在项目目录中启动桌面程序：
 
 ```powershell
-uv run python -m pix.main
+uv run pythonw -m pix
 ```
 
 1. 等待桌面程序识别游戏进程并显示游戏目录。
@@ -91,7 +91,7 @@ World of Warcraft/
 
 ### 3. 启动截图与循环
 
-安装完成后，继续使用已打开的桌面程序；如果采用手动安装且尚未启动程序，先运行 `uv run python -m pix.main`。
+安装完成后，继续使用已打开的桌面程序；如果采用手动安装且尚未启动程序，先运行 `uv run pythonw -m pix`。
 
 1. 进入游戏，保持插件像素区域在桌面上可见、不被遮挡。
 2. 点击桌面程序的 **启动截图**，查看定位状态。
@@ -188,7 +188,7 @@ flowchart LR
 | [pix/action.py](pix/action.py) | 动作类型与顺序执行线程 |
 | [pix/keyboard.py](pix/keyboard.py) | 向指定游戏进程窗口发送按键消息 |
 | [pix/ui.py](pix/ui.py) | PySide6 界面、进程发现与线程生命周期 |
-| [pix/main.py](pix/main.py) | 应用入口 |
+| [pix/__main__.py](pix/__main__.py) | 应用入口 |
 
 修改循环时，从 `Rotation.main_rotation(ctx)` 入手。返回值为 `Cast(name, note=None)`、`Use(name, note=None)`、`Idle(reason)` 或 `Sleep(reason, seconds=1)`；`Cast` 和 `Use` 的名称必须存在于 `keymap` 中。需要等待时返回 `Sleep`，实际等待时间限制为 1–15 秒，避免在循环函数中阻塞线程。
 
